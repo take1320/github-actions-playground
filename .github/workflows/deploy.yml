@@ -1,0 +1,17 @@
+name: デプロイメント(承認プロセス付き)
+
+on:
+  workflow_dispatch:
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        environment: [development, staging, production]
+    environment:
+      name: ${{ matrix.environment }}
+    steps:
+      - name: Deploy
+        run: echo "Deploying to ${{ matrix.environment }}"
